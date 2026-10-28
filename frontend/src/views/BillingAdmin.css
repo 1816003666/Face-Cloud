@@ -1,0 +1,112 @@
+/* ============================================================
+   套餐编辑器（新建/编辑套餐卡片）
+   ============================================================ */
+.plan-editor { display: block; }
+.plan-editor-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.plan-editor-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.plan-editor-hint { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+.plan-editor-hint i, .plan-field-label i { color: #ef4444; font-style: normal; margin-right: 2px; }
+
+.plan-editor-group { margin-bottom: 14px; }
+.plan-editor-group:last-of-type { margin-bottom: 12px; }
+.plan-group-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plan-group-label::before {
+  content: '';
+  width: 3px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.plan-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px 16px;
+}
+
+/* 弹窗内的编辑器：外层已经有卡片/内边距，这里去掉重复的卡片壳 */
+.plan-editor-modal .plan-editor-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.plan-editor-modal .plan-editor-group { margin-bottom: 18px; }
+.plan-editor-modal .plan-editor-group:last-of-type { margin-bottom: 0; }
+.plan-editor-modal .plan-group-label { margin-bottom: 12px; }
+.plan-editor-modal .plan-editor-footer { margin-top: 4px; }
+
+.plan-field { display: flex; flex-direction: column; gap: 6px; cursor: pointer; min-width: 0; }
+.plan-field-sort { max-width: none; }
+.plan-field-label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.plan-field input, .plan-field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  transition: border-color .12s, box-shadow .12s;
+}
+.plan-field input:focus, .plan-field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+.plan-field-tip { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
+
+.plan-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.plan-active-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.plan-active-check input { width: 15px; height: 15px; accent-color: var(--accent); }
+.plan-footer-actions { display: flex; gap: 8px; }
+.plan-footer-actions .btn-ghost {
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+.plan-footer-actions .btn-ghost:hover { background: var(--border); box-shadow: none; }

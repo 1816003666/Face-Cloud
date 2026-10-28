@@ -1,0 +1,206 @@
+/* ============================================================================
+   响应式：窗口变窄时侧边栏自动收成"图标窄条"，悬停临时展开（覆盖式，不挤压内容）
+   ============================================================================ */
+
+/* 中等宽度：稍微收窄一点，给内容让位 */
+@media (max-width: 1280px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content {
+    padding: 22px 22px 34px;
+  }
+}
+
+/* 窄窗口：侧边栏变成 76px 图标条，内容区不再被挤压 */
+@media (max-width: 1000px) {
+  .layout > .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 76px;
+    z-index: 60;
+    overflow-x: hidden;
+    transition: width .18s ease, box-shadow .18s ease;
+  }
+
+  /* 给固定定位的侧边栏让出位置 */
+  .layout > .content {
+    margin-left: 76px;
+    padding: 20px 18px 32px;
+  }
+
+  /* 收起时：只留图标，居中 */
+  .sidebar .logo {
+    justify-content: center;
+    padding: 18px 0 12px;
+  }
+
+  .sidebar .logo > span:not(.logo-mark) {
+    display: none;
+  }
+
+  .sidebar nav {
+    padding: 4px 8px 12px;
+  }
+
+  .nav-group-title {
+    display: none;
+  }
+
+  .sidebar nav a {
+    justify-content: center;
+    padding: 10px 0;
+    gap: 0;
+  }
+
+  .sidebar nav a > span {
+    display: none;
+  }
+
+  .sidebar nav a.active::before {
+    left: -8px;
+  }
+
+  .user-box {
+    padding: 10px 8px 14px;
+  }
+
+  .user-chip {
+    justify-content: center;
+  }
+
+  .user-meta,
+  .client-download-copy {
+    display: none;
+  }
+
+  .client-download-btn {
+    justify-content: center;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    margin: 0 auto;
+    border-radius: 12px;
+  }
+
+  .logout-btn {
+    width: 46px;
+    height: 40px;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logout-btn::before {
+    content: '↩';
+    font-size: 15px;
+  }
+
+  /* 悬停/聚焦时临时展开成完整侧边栏（浮在内容上方，不推挤布局） */
+  /* 只用 hover 触发；不要用 :focus-within —— 点完菜单链接仍带焦点，
+     侧边栏会一直展开，必须再点一下页面才收起 */
+  .layout > .sidebar:hover {
+    width: 232px;
+    box-shadow: 28px 0 60px rgba(2, 8, 20, .45);
+  }
+
+  .sidebar:hover .logo {
+    justify-content: flex-start;
+    padding: 20px 20px 14px;
+  }
+
+  .sidebar:hover .logo > span:not(.logo-mark) {
+    display: inline;
+  }
+
+  .sidebar:hover .nav-group-title {
+    display: block;
+  }
+
+  .sidebar:hover nav a {
+    justify-content: flex-start;
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .sidebar:hover nav a > span {
+    display: inline;
+  }
+
+  .sidebar:hover .user-chip {
+    justify-content: flex-start;
+  }
+
+  .sidebar:hover .user-meta,
+  .sidebar:hover .client-download-copy {
+    display: flex;
+  }
+
+  .sidebar:hover .client-download-btn {
+    justify-content: flex-start;
+    padding: 8px 10px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .sidebar:hover .logout-btn {
+    width: auto;
+    height: auto;
+    padding: 9px 12px;
+    font-size: 13px;
+    display: block;
+  }
+
+  .sidebar:hover .logout-btn::before {
+    content: none;
+  }
+}
+
+/* 手机宽度：内容区再紧凑一点，表格横向滚动而不是压塌 */
+@media (max-width: 720px) {
+  .layout > .content {
+    padding: 16px 12px 28px;
+  }
+
+  .page-header h2 {
+    font-size: 19px;
+  }
+
+  th,
+  td {
+    padding: 10px 12px;
+  }
+}
+
+
+/* 窄屏时表格保持可读宽度，由内容区横向滚动，而不是把列压塌 */
+@media (max-width: 1000px) {
+  .layout > .content {
+    overflow-x: auto;
+  }
+
+  .content table {
+    min-width: 880px;
+  }
+
+  /* 窄条模式下的下载按钮：图标居中、白色 */
+  .sidebar .client-download-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  .sidebar .client-download-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}

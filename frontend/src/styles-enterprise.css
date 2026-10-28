@@ -1,0 +1,37 @@
+/* ============================================================================
+   登录/注册页的补充样式
+   企业版登录页现在与个人版共用同一套青绿主题（不再单独换色），
+   这里只保留个人版登录页底部的「切换企业版」入口样式。
+   ============================================================================ */
+
+/* 个人版登录页底部：切换企业版入口 */
+.login-switch-ent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 11px 14px;
+  border: 1px dashed #c9d8d8;
+  border-radius: 12px;
+  background: #f7fbfb;
+  color: #5c7176;
+  font-size: 12.5px;
+  text-decoration: none;
+  transition: border-color .16s ease, background .16s ease, color .16s ease;
+}
+
+.login-switch-ent:hover {
+  border-color: #0aa995;
+  background: #effbf8;
+  color: #067d75;
+}
+
+.login-switch-ent strong {
+  font-weight: 650;
+}
+
+.login-switch-ent svg {
+  width: 15px;
+  height: 15px;
+}

@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+repo=$(git rev-parse --show-toplevel)
+exec pwsh -NoProfile -File "$repo/scripts/git-policy.ps1" -Mode staged

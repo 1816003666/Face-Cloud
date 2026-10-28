@@ -1,0 +1,4 @@
+node_modules/
+dist_verify/
+dist_cmp/
+*.log

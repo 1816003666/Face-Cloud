@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+remote_name="${1:-}"
+remote_url="${2:-}"
+
+case "$remote_url" in
+    *github.com*)
+        repo=$(git rev-parse --show-toplevel)
+        exec pwsh -NoProfile -File "$repo/scripts/git-policy.ps1" -Mode push -RemoteUrl "$remote_url"
+        ;;
+    *)
+        echo "Skipping GitHub-only history audit for $remote_name ($remote_url)."
+        exit 0
+        ;;
+esac

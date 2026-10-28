@@ -1,0 +1,17 @@
+[Unit]
+Description=MediaMTX forward-stream server (cloud-phone)
+After=network.target
+
+[Service]
+Type=simple
+User=firefly
+Group=firefly
+WorkingDirectory=/home/firefly/mediamtx
+ExecStart=/home/firefly/mediamtx/mediamtx /home/firefly/mediamtx/mediamtx.yml
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/firefly/mediamtx/mediamtx.log
+StandardError=append:/home/firefly/mediamtx/mediamtx.log
+
+[Install]
+WantedBy=multi-user.target

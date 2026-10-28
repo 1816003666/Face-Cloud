@@ -1,0 +1,15 @@
+# 本地（Windows, Python 3.11）调试所需的运行依赖。
+# 板子上的完整 45 个包版本见 mirror/122/state/11-pip-freeze.txt。
+Flask
+Flask-SQLAlchemy
+Flask-Cors
+flask-sock
+PyJWT
+APScheduler
+python-dotenv
+paramiko
+pillow
+croniter
+# 可选：WebRTC（aiortc/av）在 Windows 上装得上但体积大，不装时后端自动跳过 WHEP
+# aiortc
+# av

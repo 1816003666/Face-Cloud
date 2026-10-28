@@ -1,0 +1,102 @@
+# GitHub source mirror policy: source code only, never runtime or release payloads.
+# Existing tracked files remain tracked until they are explicitly removed from
+# the Git index; this file only prevents new generated files from being added.
+
+# Local source recovery archives
+/_source-history/
+/frontend-src-legacy-*/
+
+# Secrets and machine-local configuration
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+id_rsa
+id_ed25519
+
+# Python environments and caches
+**/venv/
+**/.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node dependencies, caches and build output
+**/node_modules/
+**/.npm-cache/
+**/.pnpm-store/
+**/.vite/
+**/coverage/
+frontend/dist/
+frontend/dist_*/
+frontend/dist.bak*
+
+# Runtime data, databases, logs and backups
+backend/instance/
+backend/uploads/
+backend/resources/
+backend/app_bak_*/
+state/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+*.bak
+*.bak_*
+*.bak-*
+
+# Downloaded/release binaries and archives
+**/downloads/
+*.apk
+*.exe
+*.msi
+*.dll
+*.pyd
+*.so
+*.node
+*.jar
+*.img
+*.iso
+*.dmg
+*.7z
+*.zip
+*.rar
+*.tar
+*.tar.*
+*.tgz
+*.gz
+
+# Large media/model artefacts
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.onnx
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Local investigation and recovery workspaces
+/.workbuddy/
+/云手机客户端/
+/server/
+/extracted/
+
+# Temporary files and OS/editor noise
+*.tmp
+*.part
+*.swp
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini

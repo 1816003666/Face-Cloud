@@ -1,0 +1,17 @@
+[Unit]
+Description=CloudPhone Board Backend (new platform)
+After=network.target
+
+[Service]
+Type=simple
+User=firefly
+WorkingDirectory=/home/firefly/cloud-phone/backend
+Environment=PORT=8003
+ExecStart=/home/firefly/cloud-phone/backend/venv/bin/python run_stable.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/tmp/backend.log
+StandardError=append:/tmp/backend.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,63 @@
+server {
+    listen 8003;
+    server_name _;
+    client_max_body_size 100m;
+    proxy_read_timeout 86400;
+    proxy_send_timeout 86400;
+
+    # cloud-cell-control (server02 99.122) 子路径
+    location /cloud-cell/scrcpy/ {
+        proxy_pass http://192.168.99.122:80/scrcpy/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+        proxy_buffering off;
+    }
+    location /cloud-cell/ {
+        proxy_pass http://192.168.99.122:80/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+        sub_filter_types *;
+        sub_filter_once off;
+        sub_filter '/assets/' '/cloud-cell/assets/';
+        sub_filter '/api/' '/cloud-cell/api/';
+    }
+
+    # 备用投屏 ws-scrcpy
+    location /scrcpy/ {
+        proxy_pass http://127.0.0.1:8100/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+        proxy_buffering off;
+    }
+
+    # cloud-phone (本机, 迁到 8004)
+    location / {
+        proxy_pass http://127.0.0.1:8004;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

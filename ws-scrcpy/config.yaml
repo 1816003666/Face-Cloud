@@ -1,0 +1,7 @@
+# ws-scrcpy run configuration for the cloud-phone platform
+# Local server on port 8100; tracks Android devices via the local adb server (127.0.0.1:5037).
+runGoogTracker: true
+runApplTracker: false
+server:
+  - secure: false
+    port: 8100

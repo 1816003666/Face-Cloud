@@ -1,0 +1,798 @@
+/* ============================================================================
+   视觉增强层 v2（在 styles.css 之后加载，只做"更好看"，不改结构）
+   1) 色板/圆角/阴影微调   2) 侧边栏质感   3) 表格/表单/按钮统一
+   4) 卡片与 KPI 层次      5) 弹窗/空状态/滚动条
+   ============================================================================ */
+
+:root {
+  --bg: #f5f7fa;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #f2f4f7;
+  --border: #e4e8ee;
+  --border-light: #edf0f4;
+  --text: #0f172a;
+  --text-secondary: #4c5866;
+  --text-muted: #8a94a3;
+
+  --accent: #0d9488;
+  --accent-hover: #0b7c72;
+  --accent-soft: #effcfa;
+  --accent-light: #ccfbf1;
+
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .05);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, .08), 0 2px 6px -2px rgba(15, 23, 42, .05);
+  --ring: 0 0 0 3px rgba(13, 148, 136, .16);
+}
+
+body {
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------- 侧边栏 */
+.sidebar {
+  width: 232px;
+  background: linear-gradient(180deg, #0b1424 0%, #0d1a2b 55%, #0b1626 100%);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, .04) inset;
+}
+
+.sidebar .logo {
+  padding: 20px 20px 14px;
+  font-size: 15px;
+  letter-spacing: .01em;
+}
+
+.sidebar .logo-mark {
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, .18);
+}
+
+.sidebar nav {
+  padding: 4px 10px 12px;
+  gap: 8px;              /* 原来是 14px，组与组之间空得太大 */
+}
+
+.nav-group {
+  margin-bottom: 0;
+}
+
+/* 组之间用一条极淡的分割线区隔，比纯空白更紧凑也更清晰 */
+.nav-group + .nav-group {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.nav-group-title {
+  font-size: 10px;
+  letter-spacing: .13em;
+  color: rgba(148, 163, 184, .48);
+  padding: 0 12px 4px;
+  line-height: 1.2;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin: 1px 0;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--sidebar-text);
+  transition: background .14s ease, color .14s ease, transform .14s ease;
+  position: relative;
+}
+
+.sidebar nav a:hover {
+  background: rgba(255, 255, 255, .055);
+  color: var(--sidebar-text-active);
+}
+
+.sidebar nav a.active {
+  background: linear-gradient(90deg, rgba(13, 148, 136, .22) 0%, rgba(13, 148, 136, .08) 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.sidebar nav a.active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(13, 148, 136, .6);
+}
+
+.user-box {
+  border-top: 1px solid rgba(255, 255, 255, .06);
+  padding: 12px 14px 16px;
+}
+
+/* ---------------------------------------------------------------- 内容区 */
+.content {
+  padding: 26px 30px 40px;
+}
+
+.page-header {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.page-header h2,
+.content > h2 {
+  font-size: 21px;
+  letter-spacing: -.015em;
+}
+
+.perm-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------- 卡片 */
+.panel {
+  border-radius: var(--r-lg);
+  padding: 20px 22px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+
+.panel:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.kpi {
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+}
+
+.kpi:hover {
+  transform: translateY(-1px);
+  border-color: #dbe3ea;
+  box-shadow: var(--shadow-md);
+}
+
+.kpi .kpi-value,
+.kpi-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
+}
+
+/* ---------------------------------------------------------------- 表格 */
+table {
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  background: var(--bg-elevated);
+}
+
+thead th {
+  background: #fafbfd;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+th,
+td {
+  padding: 12px 16px;
+}
+
+tbody tr {
+  transition: background .12s ease;
+}
+
+tbody tr:nth-child(even) {
+  background: #fcfdfe;
+}
+
+tbody tr:hover {
+  background: var(--accent-soft);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-empty {
+  padding: 44px 16px !important;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- 按钮 */
+button {
+  border-radius: var(--r-md);
+  padding: 8px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .14s ease, box-shadow .14s ease, transform .1s ease,
+              border-color .14s ease, color .14s ease;
+  box-shadow: 0 1px 2px rgba(13, 148, 136, .18);
+}
+
+button:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(13, 148, 136, .22);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+button.ghost {
+  box-shadow: none;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+button.ghost:hover {
+  background: var(--bg-subtle);
+  border-color: #d7dee6;
+  color: var(--text);
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------------------------------------------------------------- 表单 */
+input,
+select,
+textarea {
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: var(--text);
+  transition: border-color .14s ease, box-shadow .14s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a5aeb9;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+/* ---------------------------------------------------------------- 徽标 */
+.chip {
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- 弹窗 */
+.modal-mask {
+  background: rgba(15, 23, 42, .48);
+  backdrop-filter: blur(3px);
+  animation: mask-in .16s ease;
+}
+
+.modal-body {
+  border-radius: var(--r-xl);
+  box-shadow: 0 24px 60px -12px rgba(15, 23, 42, .35), 0 8px 24px -8px rgba(15, 23, 42, .2);
+  padding: 22px 24px;
+  animation: modal-in .18s cubic-bezier(.22, .61, .36, 1);
+}
+
+.modal-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.modal-close {
+  border-radius: 8px;
+  transition: background .14s ease, color .14s ease;
+}
+
+.modal-close:hover {
+  background: var(--bg-subtle);
+  color: var(--text);
+}
+
+@keyframes mask-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(.99); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------- 提示条 */
+.ok,
+.err {
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.ok {
+  background: var(--success-bg);
+  border-color: #d1fae5;
+  color: #047857;
+}
+
+.err {
+  background: var(--danger-bg);
+  border-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ---------------------------------------------------------------- 滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, .18) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, .16);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, .28);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------------------------------------------------------------- 工具条 */
+.toolbar,
+.files-head {
+  gap: 10px;
+}
+
+/* ============================================================================
+   二次微调：表格操作按钮、统计条、标签间距
+   ============================================================================ */
+
+/* 表格里的操作按钮改成描边风格，避免一片实心绿/红太吵 */
+table button {
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  font-weight: 500;
+}
+
+table button:hover {
+  background: var(--bg-subtle);
+  border-color: #d6dee6;
+  color: var(--text);
+  box-shadow: none;
+}
+
+table button.danger,
+table button[class*='danger'] {
+  background: #fff;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+table button.danger:hover,
+table button[class*='danger']:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* 计费页顶部统计条 */
+.hc-stat {
+  background: var(--bg-elevated);
+  border-radius: var(--r-lg) !important;
+  padding: 14px 18px !important;
+  border: 1px solid var(--border-light) !important;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+
+.hc-stat:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.hc-stat > div:first-child {
+  font-size: 20px !important;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.hc-stat .muted,
+.hc-stat > div:last-child {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  letter-spacing: .02em;
+}
+
+/* 标签页与内容之间留白更舒服 */
+.tabs {
+  margin-bottom: 18px;
+}
+
+/* 表格首列 ID 用等宽数字，颜色弱化 */
+table td:first-child {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+/* 设备卡片轻微浮起 */
+.device-card {
+  border-radius: var(--r-lg);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.device-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #dbe3ea;
+}
+
+
+/* ===== KPI 栅格等宽：避免"未开通"这种长文案把卡片撑变形 ===== */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.kpi-row > * {
+  min-width: 0;
+}
+
+/* 套餐卡（我的套餐页）轻微浮起 */
+.plan-card {
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #dbe3ea;
+}
+
+/* 侧边栏分组标题对比度略提高，避免看不清 */
+.nav-group-title {
+  color: rgba(148, 163, 184, .62);
+  padding: 0 12px 4px;
+}
+
+
+/* ============================================================================
+   表单字段布局（.plan-field）提升为全局：
+   原来只写在 views/BillingAdmin.css 里，用户没进过计费页时弹窗里会退化成标签和输入框挤一行
+   ============================================================================ */
+.plan-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.plan-field-label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.plan-field-label i {
+  color: #ef4444;
+  font-style: normal;
+  margin-right: 2px;
+}
+
+.plan-field input,
+.plan-field select,
+.plan-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--bg-elevated);
+  color: var(--text);
+}
+
+.plan-field input:focus,
+.plan-field select:focus,
+.plan-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, .12);
+}
+
+.plan-field-tip {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+
+/* ============================================================================
+   脚本管理页布局：左侧卡片列表 + 右侧分区式编辑器
+   （原来左列是表格，5 个按钮塞在 430px 里会出现横向滚动条）
+   ============================================================================ */
+.script-layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .script-layout { grid-template-columns: 1fr; }
+}
+
+.script-list-panel {
+  padding: 14px;
+  position: sticky;
+  top: 14px;
+}
+
+.script-list-head {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.script-list-head input {
+  flex: 1;
+  min-width: 0;
+}
+
+.script-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+}
+
+.script-item {
+  padding: 9px 11px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.script-item:hover {
+  background: #f6fbfa;
+  border-color: #e2ecec;
+}
+
+.script-item.active {
+  background: rgba(10, 169, 149, .07);
+  border-color: rgba(10, 169, 149, .28);
+}
+
+.script-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.script-item-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.script-item-meta {
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+.script-item-ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.script-item-ops button {
+  padding: 2px 8px;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.script-empty {
+  padding: 22px 10px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 12.5px;
+}
+
+.script-editor-panel {
+  padding: 18px 20px;
+  min-height: 380px;
+}
+
+.script-editor-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 340px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.script-editor-empty-mark {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  border: 1.5px dashed #cfe0de;
+  background: #f4fbfa;
+}
+
+.script-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.script-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.script-editor-head h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.script-section {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fcfefe;
+}
+
+.script-section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text-secondary);
+  letter-spacing: .02em;
+}
+
+.script-section-title > span {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+.script-steps-empty {
+  padding: 16px 12px;
+  border: 1px dashed #dbe7e6;
+  border-radius: 10px;
+  background: #f8fcfc;
+  color: #8b9ea2;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+.script-add-step {
+  margin-top: 9px;
+}
+
+.script-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.script-form-footer .accent {
+  min-width: 110px;
+}
+
+
+/* 脚本列表/步骤里的「删除」用红描边，不要实心高亮（实心太抢眼） */
+.script-item-ops .danger,
+.script-step-ops .danger {
+  background: #fff;
+  border: 1px solid #f2c9c9;
+  color: #d95050;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.script-item-ops .danger:hover,
+.script-step-ops .danger:hover {
+  background: #fff5f5;
+  border-color: #e8a3a3;
+}
+
+.script-step-ops button {
+  padding: 2px 8px;
+  font-size: 11.5px;
+  line-height: 1.7;
+}

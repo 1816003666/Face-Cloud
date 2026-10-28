@@ -1,0 +1,11 @@
+[Unit]
+Description=Forward 8100 to 8000
+After=network.target ws-scrcpy.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/socat TCP-LISTEN:8100,fork,reuseaddr TCP:127.0.0.1:8000
+Restart=always
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
+
